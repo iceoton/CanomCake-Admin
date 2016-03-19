@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Canom Cake Admin</string>
+    <string name="menu_home">หน้าแรก (Home)</string>
+    <string name="menu_orders">คำสั่งซื้อ (Orders)</string>
+    <string name="menu_product">สินค้า (Product)</string>
+    <string name="menu_members">สมาชิกร้านค้า (Members)</string>
+    <string name="menu_admin">ผู้ดูแลระบบ (Admin)</string>
+
+    <string name="closeDrawer">Navigation View</string>
+    <string name="openDrawer">Navigation View Closed</string>
+
+</resources>

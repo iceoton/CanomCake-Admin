@@ -93,18 +93,23 @@ public class MainActivity extends AppCompatActivity {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.home:
                         fragment = new HomeFragment();
+                        toolbar.setTitle(R.string.menu_home);
                         break;
                     case R.id.orders:
                         fragment = new OrdersFragment();
+                        toolbar.setTitle(R.string.menu_orders);
                         break;
                     case R.id.product:
                         fragment = new ProductFragment();
+                        toolbar.setTitle(R.string.menu_product);
                         break;
                     case R.id.members:
                         fragment = new MembersFragment();
+                        toolbar.setTitle(R.string.menu_members);
                         break;
                     case R.id.admin:
                         fragment = new AdminFragment();
+                        toolbar.setTitle(R.string.menu_admin);
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
@@ -123,4 +128,5 @@ public class MainActivity extends AppCompatActivity {
             navigationView.setCheckedItem(R.id.home);
         }
     }
+
 }

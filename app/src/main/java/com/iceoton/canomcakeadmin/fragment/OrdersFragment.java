@@ -11,6 +11,7 @@ import com.iceoton.canomcakeadmin.R;
 
 
 public class OrdersFragment extends Fragment {
+    String requestTag;
 
     public OrdersFragment() {
         // Required empty public constructor
@@ -26,7 +27,7 @@ public class OrdersFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            requestTag = getArguments().getString("tag");
         }
     }
 

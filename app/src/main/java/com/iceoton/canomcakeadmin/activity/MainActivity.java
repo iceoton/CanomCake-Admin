@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -126,6 +127,24 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigationView.getMenu().performIdentifierAction(R.id.home, 0);
             navigationView.setCheckedItem(R.id.home);
+        }
+    }
+
+    private static long back_pressed;
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            Log.d("DEBUG", "popping BackStack");
+            getSupportFragmentManager().popBackStackImmediate();
+        } else {
+            if (back_pressed + 2000 > System.currentTimeMillis()) {
+                super.onBackPressed(); // Exit
+            } else {
+                Toast.makeText(getBaseContext(), R.string.press_one_again,
+                        Toast.LENGTH_SHORT).show();
+            }
+            back_pressed = System.currentTimeMillis();
         }
     }
 

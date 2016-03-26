@@ -1,13 +1,22 @@
 <resources>
+    <string name="api_url">http://188.166.218.45/</string>
     <string name="app_name">Canom Cake Admin</string>
+    <string name="press_one_again">กดอีกครั้งเพื่อออกจากแอพ</string>
     <string name="menu_home">หน้าแรก (Home)</string>
     <string name="menu_orders">คำสั่งซื้อ (Orders)</string>
     <string name="menu_product">สินค้า (Product)</string>
     <string name="menu_members">สมาชิกร้านค้า (Members)</string>
     <string name="menu_admin">ผู้ดูแลระบบ (Admin)</string>
+    <string name="manage_orders">การจัดการคำสั่งซื้อ</string>
 
     <string name="closeDrawer">Navigation View</string>
     <string name="openDrawer">Navigation View Closed</string>
     <string name="text_comfirm_bank_transfer">คำสั่งซื้อที่ลูกค้า\nแจ้งชำระเงิน</string>
+
+    <string name="order_status_waiting">รอการชำระเงิน</string>
+    <string name="order_status_canceled">ยกเลิก</string>
+    <string name="order_status_paid">ชำระเงินแล้ว</string>
+    <string name="order_status_delivering">กำลังจัดส่ง</string>
+    <string name="order_status_delivered">จัดส่งแล้ว</string>
 
 </resources>

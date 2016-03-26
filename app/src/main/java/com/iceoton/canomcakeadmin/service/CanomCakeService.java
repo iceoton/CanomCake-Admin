@@ -4,6 +4,7 @@ import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrderByIdResponse;
+import com.iceoton.canomcakeadmin.medel.response.GetOrdersResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
 
@@ -38,4 +39,7 @@ public interface CanomCakeService {
     @POST("adminApi.php")
     Call<GetCustomerResponse> loadCustomerByCustomerId(@Field("tag") String tag, @Field("data") String data);
 
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<GetOrdersResponse>  loadOrdersByTag(@Field("tag")String tag);
 }

@@ -18,5 +18,6 @@
     <string name="order_status_paid">ชำระเงินแล้ว</string>
     <string name="order_status_delivering">กำลังจัดส่ง</string>
     <string name="order_status_delivered">จัดส่งแล้ว</string>
-
+    <string name="text_order_detail">รายละเอียดการสั่งซื้อ</string>
+    <string name="customer_info">ข้อมูลผู้สั่งซื้อ</string>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.OrdersActivity;
 import com.iceoton.canomcakeadmin.adapter.OrdersListAdapter;
 import com.iceoton.canomcakeadmin.medel.Order;
 import com.iceoton.canomcakeadmin.medel.response.GetOrdersResponse;
@@ -92,7 +93,9 @@ public class OrdersFragment extends Fragment {
     }
 
     private void showOrderDetail(int orderId){
-
+        Bundle args = new Bundle();
+        args.putInt("order_id", orderId);
+        ((OrdersActivity)getActivity()).placeFragmentToContrainer(OrderDetailFragment.newInstance(args));
     }
 
 }

@@ -39,7 +39,7 @@ public class OrdersActivity extends AppCompatActivity {
         // Initializing Toolbar and setting it as the actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(R.string.manage_orders);
+        setTitle(R.string.manage_orders);
         toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

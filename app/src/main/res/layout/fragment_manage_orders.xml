@@ -35,7 +35,7 @@
     </android.support.v7.widget.CardView>
 
     <TextView
-        style="@style/Text.Body"
+        style="@style/Text.Body.Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -58,7 +58,7 @@
 
 
             <TextView
-                style="@style/Text.Body"
+                style="@style/Text.Body.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_waiting"
@@ -82,7 +82,7 @@
 
 
             <TextView
-                style="@style/Text.Body"
+                style="@style/Text.Body.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_packaging"
@@ -113,7 +113,7 @@
 
 
             <TextView
-                style="@style/Text.Body"
+                style="@style/Text.Body.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_delivering"
@@ -137,7 +137,7 @@
 
 
             <TextView
-                style="@style/Text.Body"
+                style="@style/Text.Body.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_delivered"
@@ -168,7 +168,7 @@
 
 
             <TextView
-                style="@style/Text.Body"
+                style="@style/Text.Body.Label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/icon_cancel"

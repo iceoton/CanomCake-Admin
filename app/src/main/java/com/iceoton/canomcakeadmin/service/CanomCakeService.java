@@ -3,6 +3,7 @@ package com.iceoton.canomcakeadmin.service;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
+import com.iceoton.canomcakeadmin.medel.response.GetDashboardResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrderByIdResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrdersResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCategoryResponse;
@@ -42,4 +43,8 @@ public interface CanomCakeService {
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<GetOrdersResponse>  loadOrdersByTag(@Field("tag")String tag);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<GetDashboardResponse>  loadDashboard(@Field("tag")String tag);
 }

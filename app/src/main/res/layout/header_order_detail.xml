@@ -13,14 +13,14 @@
         android:paddingTop="8dp">
 
         <TextView
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="หมายเลขคำสั่งซื้อ " />
 
         <TextView
             android:id="@+id/text_order_id"
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -36,14 +36,14 @@
         android:paddingTop="8dp">
 
         <TextView
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="สั่งเมื่อวันที่ " />
 
         <TextView
             android:id="@+id/text_date"
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -62,7 +62,7 @@
 
         <TextView
             android:id="@+id/text_status"
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -82,7 +82,7 @@
 
 
     <TextView
-        style="@style/Text.Body"
+        style="@style/Text.Body.Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -103,7 +103,7 @@
 
         <TextView
             android:id="@+id/text_customer_info"
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -114,7 +114,7 @@
 
 
     <TextView
-        style="@style/Text.Body"
+        style="@style/Text.Body.Label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -141,7 +141,7 @@
             android:text="รายการ" />
 
         <TextView
-            style="@style/Text.Body"
+            style="@style/Text.Body.Label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

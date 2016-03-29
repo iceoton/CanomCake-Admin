@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.BankTransferActivity;
 import com.iceoton.canomcakeadmin.activity.OrdersActivity;
 
 
@@ -48,7 +49,8 @@ public class ManageOrdersFragment extends Fragment {
         cardBankTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), BankTransferActivity.class);
+                getActivity().startActivity(intent);
             }
         });
         cardWaiting = (CardView) rootView.findViewById(R.id.card_waiting);

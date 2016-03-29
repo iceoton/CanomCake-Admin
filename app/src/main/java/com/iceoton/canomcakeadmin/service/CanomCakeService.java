@@ -1,13 +1,16 @@
 package com.iceoton.canomcakeadmin.service;
 
+import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
+import com.iceoton.canomcakeadmin.medel.response.GetAllTransactionsResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetDashboardResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrderByIdResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrdersResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
+import com.iceoton.canomcakeadmin.medel.response.SetPaidOrderResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -47,4 +50,16 @@ public interface CanomCakeService {
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<GetDashboardResponse>  loadDashboard(@Field("tag")String tag);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<GetAllTransactionsResponse>  loadAllTransactions(@Field("tag")String tag);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<DeleteTransactionResponse> deleteTransactionById(@Field("tag") String tag, @Field("data") String data);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<SetPaidOrderResponse> setPaidOrderByID(@Field("tag") String tag, @Field("data") String data);
 }

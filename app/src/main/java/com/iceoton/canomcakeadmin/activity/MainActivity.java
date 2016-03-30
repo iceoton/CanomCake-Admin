@@ -19,8 +19,8 @@ import com.iceoton.canomcakeadmin.fragment.AdminFragment;
 import com.iceoton.canomcakeadmin.fragment.ContentFragment;
 import com.iceoton.canomcakeadmin.fragment.HomeFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageOrdersFragment;
+import com.iceoton.canomcakeadmin.fragment.ManageProductFragment;
 import com.iceoton.canomcakeadmin.fragment.MembersFragment;
-import com.iceoton.canomcakeadmin.fragment.ProductFragment;
 
 public class MainActivity extends AppCompatActivity {
     //Defining Variables
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle(R.string.menu_orders);
                         break;
                     case R.id.product:
-                        fragment = new ProductFragment();
+                        fragment = new ManageProductFragment();
                         toolbar.setTitle(R.string.menu_product);
                         break;
                     case R.id.members:

@@ -32,7 +32,7 @@
                     android:drawablePadding="@dimen/padding_normal"
                     android:gravity="left|center_vertical"
                     android:padding="@dimen/padding_normal"
-                    android:text="฿ 100,000"
+                    android:text=""
                     android:textColor="@color/green"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -73,7 +73,7 @@
                             android:drawablePadding="@dimen/padding_normal"
                             android:gravity="left|center_vertical"
                             android:padding="@dimen/padding_normal"
-                            android:text="99" />
+                            android:text="00" />
 
                         <TextView
                             style="@style/Text.Value.Unit"
@@ -118,7 +118,7 @@
                             android:drawablePadding="@dimen/padding_normal"
                             android:gravity="left|center_vertical"
                             android:padding="@dimen/padding_normal"
-                            android:text="99" />
+                            android:text="00" />
 
                         <TextView
                             style="@style/Text.Value.Unit"
@@ -204,7 +204,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left|center_vertical"
                                 android:padding="@dimen/padding_normal"
-                                android:text="99" />
+                                android:text="00" />
 
                             <TextView
                                 style="@style/Text.Value.Unit"
@@ -247,7 +247,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left|center_vertical"
                                 android:padding="@dimen/padding_normal"
-                                android:text="99" />
+                                android:text="00" />
 
                             <TextView
                                 style="@style/Text.Value.Unit"
@@ -299,7 +299,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left|center_vertical"
                                 android:padding="@dimen/padding_normal"
-                                android:text="99" />
+                                android:text="00" />
 
                             <TextView
                                 style="@style/Text.Value.Unit"
@@ -342,7 +342,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="left|center_vertical"
                                 android:padding="@dimen/padding_normal"
-                                android:text="99" />
+                                android:text="00" />
 
                             <TextView
                                 style="@style/Text.Value.Unit"

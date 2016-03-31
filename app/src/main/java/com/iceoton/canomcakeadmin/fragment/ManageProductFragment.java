@@ -1,6 +1,7 @@
 package com.iceoton.canomcakeadmin.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.ProductActivity;
 import com.iceoton.canomcakeadmin.adapter.CategoryListAdapter;
 import com.iceoton.canomcakeadmin.medel.Category;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
@@ -94,7 +96,11 @@ public class ManageProductFragment extends Fragment {
 
     public void showProductByCategory(Category category) {
         Log.d("DEBUG", "Show product in category id = " + category.getId());
-    }
 
+        Intent intent = new Intent(getActivity(), ProductActivity.class);
+        intent.putExtra("category_id", category.getId());
+        intent.putExtra("category_name", category.getNameThai());
+        getActivity().startActivity(intent);
+    }
 }
 

@@ -26,6 +26,12 @@
 
         <activity android:name=".activity.BankTransferActivity"
             android:theme="@style/NoActionBarTheme"/>
+
+        <activity android:name=".activity.ProductActivity"
+            android:theme="@style/NoActionBarTheme"/>
+
+        <activity android:name=".activity.ProductDetailActivity"
+            android:theme="@style/NoActionBarTheme"/>
     </application>
 
 </manifest>

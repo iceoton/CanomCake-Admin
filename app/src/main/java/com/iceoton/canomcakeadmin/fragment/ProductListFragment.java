@@ -1,7 +1,9 @@
 package com.iceoton.canomcakeadmin.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.AddProductActivity;
 import com.iceoton.canomcakeadmin.adapter.RecyclerViewAdapter;
 import com.iceoton.canomcakeadmin.medel.Product;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
@@ -32,7 +35,7 @@ public class ProductListFragment extends Fragment {
     Bundle bundle;
     RecyclerView recyclerView;
     int categoryId;
-
+    FloatingActionButton fab;
 
     public static ProductListFragment newInstance(Bundle args) {
         ProductListFragment fragment = new ProductListFragment();
@@ -46,7 +49,7 @@ public class ProductListFragment extends Fragment {
                              Bundle savedInstanceState) {
         bundle = getArguments();
         categoryId = bundle.getInt("category_id");
-        
+
         View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
         initialView(rootView);
 
@@ -56,6 +59,15 @@ public class ProductListFragment extends Fragment {
     private void initialView(View rootView) {
         String categoryName = bundle.getString("category_name");
         getActivity().setTitle(categoryName);
+
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddProductActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
     }
@@ -67,7 +79,7 @@ public class ProductListFragment extends Fragment {
     }
 
     private void loadProductInCategory(int categoryId) {
-        if(categoryId == 2){
+        if (categoryId == 2) {
             showAllProduct();
             return;
         }

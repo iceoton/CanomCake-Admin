@@ -51,4 +51,32 @@ public class Product {
     public String getImageUrl() {
         return image;
     }
+
+    public void setCategoryId(String categoryId) {
+        this.category_id = categoryId;
+    }
+
+    public void setNameThai(String name) {
+        this.name_th = name;
+    }
+
+    public void setNameEnglish(String name) {
+        this.name_en = name;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.image = imageUrl;
+    }
 }

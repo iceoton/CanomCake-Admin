@@ -1,5 +1,6 @@
 package com.iceoton.canomcakeadmin.service;
 
+import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
@@ -62,4 +63,8 @@ public interface CanomCakeService {
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<SetPaidOrderResponse> setPaidOrderByID(@Field("tag") String tag, @Field("data") String data);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<DeleteProductResponse> deleteProductByCode(@Field("tag") String tag, @Field("data") String data);
 }

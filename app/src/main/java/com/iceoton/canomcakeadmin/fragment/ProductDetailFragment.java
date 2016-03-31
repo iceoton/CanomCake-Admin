@@ -1,18 +1,23 @@
 package com.iceoton.canomcakeadmin.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.Product;
+import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
@@ -54,7 +59,7 @@ public class ProductDetailFragment extends Fragment {
 
     private void initialView(View rootView, Bundle savedInstanceState) {
         Bundle args = getArguments();
-        String productCode = args.getString("product_code");
+        final String productCode = args.getString("product_code");
         ivPhoto = (ImageView) rootView.findViewById(R.id.image_photo);
         txtName = (TextView) rootView.findViewById(R.id.text_name);
         txtDetail = (TextView) rootView.findViewById(R.id.text_detail);
@@ -62,8 +67,34 @@ public class ProductDetailFragment extends Fragment {
         txtUnit = (TextView) rootView.findViewById(R.id.text_unit);
         btnEdit = (Button) rootView.findViewById(R.id.button_edit);
         btnDelete = (Button) rootView.findViewById(R.id.button_delete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteProduct(productCode);
+            }
+        });
 
         loadProductByCode(productCode);
+    }
+
+    private void deleteProduct(final String productCode){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setIcon(R.drawable.ic_bank_tranfer);
+        builder.setMessage("ยืนยันการลบสินค้า")
+                .setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        sendDeleteProductByCode(productCode);
+                    }
+                })
+                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // Create the AlertDialog object
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     private void loadProductByCode(final String productCode) {
@@ -100,7 +131,40 @@ public class ProductDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GetProductByCodeResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
+    }
 
+    private void sendDeleteProductByCode(final String productCode) {
+        JSONObject data = new JSONObject();
+        try {
+            data.put("code", productCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.deleteProductByCode("deleteProduct", data.toString());
+        call.enqueue(new Callback<DeleteProductResponse>() {
+            @Override
+            public void onResponse(Call<DeleteProductResponse> call, Response<DeleteProductResponse> response) {
+                DeleteProductResponse deleteProductResponse = response.body();
+                if (deleteProductResponse.getSuccessValue() == 1) {
+                    Toast.makeText(getActivity(), "ลบสินค้าเรียบร้อย", Toast.LENGTH_LONG).show();
+                    getActivity().onBackPressed();
+                } else {
+                    Toast.makeText(getActivity(), "ไม่สามารถลบสินค้าได้ลองใหม่อีกครั้ง", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteProductResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });
     }

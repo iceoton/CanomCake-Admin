@@ -31,6 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProductListFragment extends Fragment {
     Bundle bundle;
     RecyclerView recyclerView;
+    int categoryId;
+
 
     public static ProductListFragment newInstance(Bundle args) {
         ProductListFragment fragment = new ProductListFragment();
@@ -42,6 +44,9 @@ public class ProductListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        bundle = getArguments();
+        categoryId = bundle.getInt("category_id");
+        
         View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
         initialView(rootView);
 
@@ -49,18 +54,16 @@ public class ProductListFragment extends Fragment {
     }
 
     private void initialView(View rootView) {
-        bundle = getArguments();
-        int categoryId = bundle.getInt("category_id");
         String categoryName = bundle.getString("category_name");
         getActivity().setTitle(categoryName);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        loadProductInCategory(categoryId);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        loadProductInCategory(categoryId);
     }
 
     private void loadProductInCategory(int categoryId) {

@@ -15,9 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iceoton.canomcakeadmin.R;
-import com.iceoton.canomcakeadmin.fragment.AdminFragment;
 import com.iceoton.canomcakeadmin.fragment.ContentFragment;
 import com.iceoton.canomcakeadmin.fragment.HomeFragment;
+import com.iceoton.canomcakeadmin.fragment.ManageAdminFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageOrdersFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageProductFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageUserFragment;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle(R.string.menu_members);
                         break;
                     case R.id.admin:
-                        fragment = new AdminFragment();
+                        fragment = new ManageAdminFragment();
                         toolbar.setTitle(R.string.menu_admin);
                         break;
                     default:

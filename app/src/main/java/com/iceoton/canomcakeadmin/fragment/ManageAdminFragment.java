@@ -1,7 +1,6 @@
 package com.iceoton.canomcakeadmin.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,13 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iceoton.canomcakeadmin.R;
-import com.iceoton.canomcakeadmin.activity.UserActivity;
-import com.iceoton.canomcakeadmin.adapter.UserListAdapter;
-import com.iceoton.canomcakeadmin.medel.User;
-import com.iceoton.canomcakeadmin.medel.response.GetAllCustomerResponse;
+import com.iceoton.canomcakeadmin.adapter.AdminListAdapter;
+import com.iceoton.canomcakeadmin.medel.Admin;
+import com.iceoton.canomcakeadmin.medel.response.GetAllAdminResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -29,15 +25,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class ManageUserFragment extends Fragment {
-    ListView listViewUser;
+public class ManageAdminFragment extends Fragment {
+    ListView listViewAdmin;
 
-    public ManageUserFragment() {
+    public ManageAdminFragment() {
         // Required empty public constructor
     }
 
-    public static ManageUserFragment newInstance(Bundle args) {
-        ManageUserFragment fragment = new ManageUserFragment();
+    public static ManageAdminFragment newInstance(Bundle args) {
+        ManageAdminFragment fragment = new ManageAdminFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,54 +49,50 @@ public class ManageUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_manage_user, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_manage_admin, container, false);
         initialView(rootView, savedInstanceState);
         return rootView;
     }
 
     private void initialView(View rootView, Bundle savedInstanceState) {
-        listViewUser = (ListView) rootView.findViewById(R.id.list_user);
-
+        listViewAdmin = (ListView) rootView.findViewById(R.id.list_admin);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadAllUserFromServer();
+        loadAllAdminFromServer();
     }
 
-    private void loadAllUserFromServer() {
+    private void loadAllAdminFromServer() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.api_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
-        Call call = canomCakeService.loadAllCustomer("getAllCustomers");
-        call.enqueue(new Callback<GetAllCustomerResponse>() {
+        Call call = canomCakeService.loadAllAdmin("getAllAdmins");
+        call.enqueue(new Callback<GetAllAdminResponse>() {
             @Override
-            public void onResponse(Call<GetAllCustomerResponse> call, Response<GetAllCustomerResponse> response) {
-                final ArrayList<User> users = response.body().getResult();
-                if (users != null) {
-                    Log.d("DEBUG", "Number of users: " + users.size());
-                    UserListAdapter userListAdapter = new UserListAdapter(getActivity(), users);
-                    listViewUser.setAdapter(userListAdapter);
-                    listViewUser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onResponse(Call<GetAllAdminResponse> call, Response<GetAllAdminResponse> response) {
+                ArrayList<Admin> admins = response.body().getResult();
+                if (admins != null) {
+                    Log.d("DEBUG", "Number of admin: " + admins.size());
+                    AdminListAdapter adminListAdapter = new AdminListAdapter(getActivity(),admins);
+                    listViewAdmin.setAdapter(adminListAdapter);
+                    listViewAdmin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(getActivity(), UserActivity.class);
-                            intent.putExtra("user_id", Parcels.wrap(users.get(position)));
-                            startActivity(intent);
+
                         }
                     });
                 }
             }
 
             @Override
-            public void onFailure(Call<GetAllCustomerResponse> call, Throwable t) {
+            public void onFailure(Call<GetAllAdminResponse> call, Throwable t) {
                 Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });
     }
-
 
 }

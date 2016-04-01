@@ -5,6 +5,7 @@ import com.iceoton.canomcakeadmin.medel.response.DeleteCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
 import com.iceoton.canomcakeadmin.medel.response.EditProductResponse;
+import com.iceoton.canomcakeadmin.medel.response.GetAllAdminResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
@@ -58,6 +59,10 @@ public interface CanomCakeService {
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<GetAllCustomerResponse> loadAllCustomer(@Field("tag") String tag);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<GetAllAdminResponse> loadAllAdmin(@Field("tag") String tag);
 
     @FormUrlEncoded
     @POST("adminApi.php")

@@ -150,7 +150,7 @@ public class OrderDetailFragment extends Fragment {
     }
 
     private void showUserInfo(final User user) {
-        String customerInfo = "ชื่อ: " + user.getFullname();
+        String customerInfo = "ชื่อ: " + user.getFullname().replace(",","  ");;
         customerInfo += "\nเบอร์โทร: " + user.getPhoneNumber() + " อีเมล: " + user.getEmail();
         customerInfo += "\nที่อยู่: " + user.getAddress();
         txtCustomerInfo.setText(customerInfo);

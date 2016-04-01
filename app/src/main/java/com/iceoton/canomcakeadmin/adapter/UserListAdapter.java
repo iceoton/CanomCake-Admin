@@ -62,7 +62,8 @@ public class UserListAdapter extends BaseAdapter {
 
         User user = users.get(position);
         viewHolder.txtUserId.setText(user.getId());
-        viewHolder.txtFullName.setText(user.getFullname());
+        String fullName = user.getFullname().replace(",","  ");
+        viewHolder.txtFullName.setText(fullName);
         if (user.isActive()) {
             viewHolder.imageActive.setVisibility(View.VISIBLE);
         }

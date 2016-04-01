@@ -21,6 +21,12 @@
         <item name="android:textSize">22sp</item>
     </style>
 
+    <style name="Text.Head" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Text.Body.Large" parent="TextAppearance.AppCompat.Large">
         <item name="android:textSize">18sp</item>
     </style>
@@ -38,6 +44,11 @@
     <style name="Text.Item.Body" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="Text.Profile.Body" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Text.Value" parent="TextAppearance.AppCompat.Large">

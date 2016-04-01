@@ -3,6 +3,9 @@ package com.iceoton.canomcakeadmin.medel;
 
 import com.google.gson.annotations.Expose;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class User {
     @Expose
     String id;
@@ -20,6 +23,12 @@ public class User {
     String latitude;
     @Expose
     String longitude;
+    @Expose
+    String active;
+
+    public User() {
+        /*Required empty bean constructor*/
+    }
 
     public String getId() {
         return id;
@@ -51,5 +60,9 @@ public class User {
 
     public String getLongitude() {
         return longitude;
+    }
+
+    public boolean isActive() {
+        return active.equals("1");
     }
 }

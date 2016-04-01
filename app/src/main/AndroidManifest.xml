@@ -52,6 +52,11 @@
             android:name=".activity.EditProductActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme" />
+
+        <activity
+            android:name=".activity.UserActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
     </application>
 
 </manifest>

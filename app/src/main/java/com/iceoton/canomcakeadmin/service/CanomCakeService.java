@@ -1,10 +1,12 @@
 package com.iceoton.canomcakeadmin.service;
 
 import com.iceoton.canomcakeadmin.medel.response.AddProductResponse;
+import com.iceoton.canomcakeadmin.medel.response.DeleteCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
 import com.iceoton.canomcakeadmin.medel.response.EditProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
+import com.iceoton.canomcakeadmin.medel.response.GetAllCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllTransactionsResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
@@ -48,9 +50,18 @@ public interface CanomCakeService {
     @POST("customerApi.php")
     Call<GetProductByCodeResponse> loadProductByCode(@Field("tag") String tag,
                                                      @Field("data") String data);
+
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<GetOrderByIdResponse> loadOrderByOrderId(@Field("tag") String tag, @Field("data") String data);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<GetAllCustomerResponse> loadAllCustomer(@Field("tag") String tag);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
+    Call<DeleteCustomerResponse> deleteCustomerById(@Field("tag") String tag, @Field("data") String data);
 
     @FormUrlEncoded
     @POST("adminApi.php")
@@ -58,15 +69,15 @@ public interface CanomCakeService {
 
     @FormUrlEncoded
     @POST("adminApi.php")
-    Call<GetOrdersResponse>  loadOrdersByTag(@Field("tag")String tag);
+    Call<GetOrdersResponse> loadOrdersByTag(@Field("tag") String tag);
 
     @FormUrlEncoded
     @POST("adminApi.php")
-    Call<GetDashboardResponse>  loadDashboard(@Field("tag")String tag);
+    Call<GetDashboardResponse> loadDashboard(@Field("tag") String tag);
 
     @FormUrlEncoded
     @POST("adminApi.php")
-    Call<GetAllTransactionsResponse>  loadAllTransactions(@Field("tag")String tag);
+    Call<GetAllTransactionsResponse> loadAllTransactions(@Field("tag") String tag);
 
     @FormUrlEncoded
     @POST("adminApi.php")

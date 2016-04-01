@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_black">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Text.Head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light"
+            android:padding="8dp"
+            android:text="ข้อมูลส่วนบุคคล" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Profile.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="ชื่อ" />
+
+            <EditText
+                android:id="@+id/edit_name"
+                style="@style/Text.Body.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="right"
+                android:hint="[ชื่อ]"
+                android:textColor="@color/secondary_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Profile.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="นามสกุล" />
+
+            <EditText
+                android:id="@+id/edit_surname"
+                style="@style/Text.Body.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="right"
+                android:hint="[นามสกุล]"
+                android:textColor="@color/secondary_text" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/Text.Head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_light"
+            android:padding="8dp"
+            android:text="ข้อมูลส่วนที่ติดต่อได้" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Profile.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="หมายเลขโทรศัพท์" />
+
+            <EditText
+                android:id="@+id/edit_mobile"
+                style="@style/Text.Body.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="right"
+                android:hint="[หมายเลขโทรศัพท์]"
+                android:inputType="phone"
+                android:textColor="@color/secondary_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Profile.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="อีเมล" />
+
+            <EditText
+                android:id="@+id/edit_email"
+                style="@style/Text.Body.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:gravity="right"
+                android:hint="[อีเมล]"
+                android:textColor="@color/secondary_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                style="@style/Text.Profile.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="8dp"
+                android:text="ที่อยู่" />
+
+            <EditText
+                android:id="@+id/edit_address"
+                style="@style/Text.Body.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/gray_light"
+                android:enabled="false"
+                android:gravity="left"
+                android:hint="[ที่อยู่ ของท่าน]"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red"
+            android:minHeight="60dp"
+            android:text="ลบผู้ใช้"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

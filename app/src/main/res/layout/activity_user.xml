@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.iceoton.canomcakeadmin.activity.AddProductActivity">
+    tools:context="com.iceoton.canomcakeadmin.activity.UserActivity">
 
     <include
         android:id="@+id/toolbar"

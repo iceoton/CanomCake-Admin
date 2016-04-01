@@ -3,6 +3,8 @@ package com.iceoton.canomcakeadmin.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -22,10 +24,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.Product;
+import com.iceoton.canomcakeadmin.medel.response.AddProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.UploadFileResponse;
+import com.iceoton.canomcakeadmin.service.CanomCakeService;
 import com.iceoton.canomcakeadmin.service.FileUploadService;
 import com.iceoton.canomcakeadmin.service.ServiceGenerator;
 import com.iceoton.canomcakeadmin.util.FileUtils;
@@ -42,6 +47,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AddProductFragment extends Fragment {
@@ -111,21 +118,10 @@ public class AddProductFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Product product = new Product();
-                int selectedCategory = spinnerCategory.getSelectedItemPosition();
-                if (selectedCategory == 0) {
-                    product.setCategoryId("3");
-                } else {
-                    product.setCategoryId("4");
+                Product product = checkInputData();
+                if (product != null) {
+                    addNewProduct(product);
                 }
-
-                product.setNameThai(etName.getText().toString());
-                product.setNameEnglish("");
-                product.setPrice(etPrice.getText().toString());
-                product.setUnit(etUnit.getText().toString());
-                product.setDetail(etDetail.getText().toString());
-                product.setImageUrl("uploaded/c000.jpg");
-                addProductToServer(product);
             }
         });
     }
@@ -152,6 +148,54 @@ public class AddProductFragment extends Fragment {
 
     }
 
+    private Product checkInputData() {
+        Product product = new Product();
+        int selectedCategory = spinnerCategory.getSelectedItemPosition();
+        if (selectedCategory == 0) {
+            product.setCategoryId("3");
+        } else {
+            product.setCategoryId("4");
+        }
+        String productName = etName.getText().toString();
+        if (productName.trim().equals("")) {
+            Toast.makeText(getActivity(), "กรุณาใส่ชื่อสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            product.setNameThai(productName);
+        }
+        product.setNameEnglish("");
+
+        String strPrice = etPrice.getText().toString();
+        if (strPrice.equals("")) {
+            Toast.makeText(getActivity(), "กรุณาใส่ราคาสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            product.setPrice(strPrice);
+        }
+
+        String unit = etUnit.getText().toString();
+        if (unit.trim().equals("")) {
+            Toast.makeText(getActivity(), "กรุณาใส่หน่วยสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            product.setUnit(unit);
+        }
+        product.setDetail(etDetail.getText().toString());
+
+        if (imageUri == null) {
+            Toast.makeText(getActivity(), "กรุณาเลือกรูปสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        return product;
+    }
+
+    private void addNewProduct(Product product) {
+        if (imageUri != null) {
+            uploadImageAndAddProduct(imageUri, product);
+        }
+    }
+
     private void addProductToServer(Product product) {
         JSONObject data = new JSONObject();
         try {
@@ -165,15 +209,45 @@ public class AddProductFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         Log.d("DEBUG", "json = " + data.toString());
-        if (imageUri != null) {
-            uploadFile(imageUri);
-        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.addNewProduct("addProduct", data.toString());
+        call.enqueue(new Callback<AddProductResponse>() {
+            @Override
+            public void onResponse(Call<AddProductResponse> call, Response<AddProductResponse> response) {
+                AddProductResponse addProductResponse = response.body();
+                if (addProductResponse.getSuccessValue() == 1) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setIcon(R.drawable.ic_bank_tranfer);
+                    builder.setMessage("เพิ่มสินค้าเรียบร้อยแล้ว")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                    getActivity().onBackPressed();
+                                }
+                            });
+                    // Create the AlertDialog object
+                    AlertDialog dialog = builder.create();
+                    dialog.setCanceledOnTouchOutside(true);
+                    dialog.show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddProductResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
 
     }
 
-    private void uploadFile(Uri fileUri) {
+    private void uploadImageAndAddProduct(Uri fileUri, final Product product) {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -211,6 +285,8 @@ public class AddProductFragment extends Fragment {
             public void onResponse(Call<UploadFileResponse> call, Response<UploadFileResponse> response) {
                 if (response.body().getSuccessValue() == 1) {
                     Log.d("DEBUG", "upload success: " + response.body().getImageUrl());
+                    product.setImageUrl(response.body().getImageUrl());
+                    addProductToServer(product);
                 } else {
                     Log.d("DEBUG", "upload error:" + response.body().getErrorMessage());
                 }

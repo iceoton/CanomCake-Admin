@@ -1,5 +1,6 @@
 package com.iceoton.canomcakeadmin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.iceoton.canomcakeadmin.fragment.ManageAdminFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageOrdersFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageProductFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageUserFragment;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 public class MainActivity extends AppCompatActivity {
     //Defining Variables
@@ -70,9 +73,22 @@ public class MainActivity extends AppCompatActivity {
 
         View header = navigationView.getHeaderView(0);
         TextView txtUsername = (TextView) header.findViewById(R.id.username);
-        txtUsername.setText("Ton Namwiset");
         TextView txtEmail = (TextView) header.findViewById(R.id.email);
-        txtEmail.setText("iceoton@gmail.com");
+        Button btnLogout = (Button) header.findViewById(R.id.button_logout);
+
+        final AppPreference appPreference = new AppPreference(MainActivity.this);
+        txtUsername.setText(appPreference.getFullName().replace("," , "  "));
+        txtEmail.setText(appPreference.getUserName());
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appPreference.saveLoginStatus(false);
+                Intent intentToLogin = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intentToLogin);
+                finish();
+            }
+        });
+
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

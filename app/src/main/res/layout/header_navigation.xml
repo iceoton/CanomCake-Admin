@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="190dp"
     android:background="@drawable/bg_header_drawer"
-    android:paddingTop="36dp"
+    android:orientation="vertical"
     android:paddingBottom="36dp"
-    android:orientation="vertical">
+    android:paddingTop="36dp">
 
     <TextView
         android:id="@+id/username"
@@ -27,5 +27,12 @@
         android:textColor="@color/primaryLight"
         android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/button_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Log out" />
 
 </LinearLayout>

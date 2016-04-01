@@ -40,6 +40,16 @@ public class AppPreference {
         return sharedPref.getString("user_name", "");
     }
 
+    public void saveFullName(String fullName) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("full_name", fullName);
+        editor.apply();
+    }
+
+    public String getFullName() {
+        return sharedPref.getString("full_name", "");
+    }
+
     public void saveAppLanguage(String language) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("appLanguage", language);

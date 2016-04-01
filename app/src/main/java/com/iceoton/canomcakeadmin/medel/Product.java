@@ -2,6 +2,9 @@ package com.iceoton.canomcakeadmin.medel;
 
 import com.google.gson.annotations.Expose;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Product {
     @Expose
     String code;
@@ -19,6 +22,10 @@ public class Product {
     String unit;
     @Expose
     String image;
+
+    public Product() {
+        /*Required empty bean constructor*/
+    }
 
     public String getCode() {
         return code;

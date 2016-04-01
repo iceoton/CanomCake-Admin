@@ -3,6 +3,7 @@ package com.iceoton.canomcakeadmin.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.EditProductActivity;
 import com.iceoton.canomcakeadmin.medel.Product;
 import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
@@ -23,6 +25,7 @@ import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +34,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductDetailFragment extends Fragment {
+    String productCode;
     ImageView ivPhoto;
     TextView txtName, txtDetail, txtPrice, txtUnit;
     Button btnEdit, btnDelete;
@@ -40,6 +44,15 @@ public class ProductDetailFragment extends Fragment {
         fragment.setArguments(args);
 
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            productCode = getArguments().getString("product_code");
+        }
+
     }
 
 
@@ -55,17 +68,17 @@ public class ProductDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        loadProductByCode(productCode);
     }
 
     private void initialView(View rootView, Bundle savedInstanceState) {
-        Bundle args = getArguments();
-        final String productCode = args.getString("product_code");
         ivPhoto = (ImageView) rootView.findViewById(R.id.image_photo);
         txtName = (TextView) rootView.findViewById(R.id.text_name);
         txtDetail = (TextView) rootView.findViewById(R.id.text_detail);
         txtPrice = (TextView) rootView.findViewById(R.id.text_price);
         txtUnit = (TextView) rootView.findViewById(R.id.text_unit);
         btnEdit = (Button) rootView.findViewById(R.id.button_edit);
+
         btnDelete = (Button) rootView.findViewById(R.id.button_delete);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +86,9 @@ public class ProductDetailFragment extends Fragment {
                 deleteProduct(productCode);
             }
         });
-
-        loadProductByCode(productCode);
     }
 
-    private void deleteProduct(final String productCode){
+    private void deleteProduct(final String productCode) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.ic_bank_tranfer);
         builder.setMessage("ยืนยันการลบสินค้า")
@@ -126,6 +137,12 @@ public class ProductDetailFragment extends Fragment {
                     String imageUrl = getActivity().getResources().getString(R.string.api_url)
                             + product.getImageUrl();
                     Glide.with(getActivity()).load(imageUrl).into(ivPhoto);
+                    btnEdit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            editProduct(product);
+                        }
+                    });
                 }
             }
 
@@ -169,5 +186,10 @@ public class ProductDetailFragment extends Fragment {
         });
     }
 
+    private void editProduct(Product product) {
+        Intent intent = new Intent(getActivity(), EditProductActivity.class);
+        intent.putExtra("product", Parcels.wrap(product));
+        getActivity().startActivity(intent);
+    }
 
 }

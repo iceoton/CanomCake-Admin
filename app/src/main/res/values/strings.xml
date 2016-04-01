@@ -22,4 +22,5 @@
     <string name="customer_info">ข้อมูลผู้สั่งซื้อ</string>
     <string name="bank_transfer_confirm">รายการแจ้งโอนเงิน</string>
     <string name="add_new_product">เพิ่มสินค้าใหม่</string>
+    <string name="edit_product">แก้ไขสินค้า</string>
 </resources>

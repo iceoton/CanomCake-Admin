@@ -1,7 +1,9 @@
 package com.iceoton.canomcakeadmin.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.iceoton.canomcakeadmin.R;
+import com.iceoton.canomcakeadmin.activity.AdminActivity;
 import com.iceoton.canomcakeadmin.adapter.AdminListAdapter;
 import com.iceoton.canomcakeadmin.medel.Admin;
 import com.iceoton.canomcakeadmin.medel.response.GetAllAdminResponse;
@@ -27,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ManageAdminFragment extends Fragment {
     ListView listViewAdmin;
+    FloatingActionButton fab;
 
     public ManageAdminFragment() {
         // Required empty public constructor
@@ -56,6 +60,14 @@ public class ManageAdminFragment extends Fragment {
 
     private void initialView(View rootView, Bundle savedInstanceState) {
         listViewAdmin = (ListView) rootView.findViewById(R.id.list_admin);
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AdminActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     @Override

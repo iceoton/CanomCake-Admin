@@ -2,7 +2,7 @@ package com.iceoton.canomcakeadmin.medel.response;
 
 import com.google.gson.annotations.Expose;
 
-public class DeleteCustomerResponse {
+public class DeleteResponse {
     @Expose
     int success;
     @Expose

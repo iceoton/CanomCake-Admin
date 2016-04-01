@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.User;
-import com.iceoton.canomcakeadmin.medel.response.DeleteCustomerResponse;
+import com.iceoton.canomcakeadmin.medel.response.DeleteResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
 import org.json.JSONException;
@@ -125,20 +125,20 @@ public class UserFragment extends Fragment {
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
         Call call = canomCakeService.deleteCustomerById("deleteCustomer", data.toString());
-        call.enqueue(new Callback<DeleteCustomerResponse>() {
+        call.enqueue(new Callback<DeleteResponse>() {
             @Override
-            public void onResponse(Call<DeleteCustomerResponse> call, Response<DeleteCustomerResponse> response) {
-                DeleteCustomerResponse deleteCustomerResponse = response.body();
-                if (deleteCustomerResponse.getSuccessValue() == 1) {
-                    Toast.makeText(getActivity(), "ลบสินค้าเรียบร้อย", Toast.LENGTH_LONG).show();
+            public void onResponse(Call<DeleteResponse> call, Response<DeleteResponse> response) {
+                DeleteResponse deleteResponse = response.body();
+                if (deleteResponse.getSuccessValue() == 1) {
+                    Toast.makeText(getActivity(), "ลบผู้ใช้งานเรียบร้อยแล้ว", Toast.LENGTH_LONG).show();
                     getActivity().onBackPressed();
                 } else {
-                    Toast.makeText(getActivity(), "ไม่สามารถลบผู้ใช้ได้ ลองใหม่อีกครั้ง", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "ไม่สามารถลบได้ ลองใหม่อีกครั้ง", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<DeleteCustomerResponse> call, Throwable t) {
+            public void onFailure(Call<DeleteResponse> call, Throwable t) {
                 Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });

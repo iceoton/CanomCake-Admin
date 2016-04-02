@@ -28,6 +28,7 @@ import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -75,6 +76,7 @@ public class ManageAdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AdminActivity.class);
+                intent.putExtra("tag", "add");
                 getActivity().startActivity(intent);
             }
         });
@@ -96,7 +98,7 @@ public class ManageAdminFragment extends Fragment {
         call.enqueue(new Callback<GetAllAdminResponse>() {
             @Override
             public void onResponse(Call<GetAllAdminResponse> call, Response<GetAllAdminResponse> response) {
-                ArrayList<Admin> admins = response.body().getResult();
+                final ArrayList<Admin> admins = response.body().getResult();
                 if (admins != null) {
                     Log.d("DEBUG", "Number of admin: " + admins.size());
                     AdminListAdapter adminListAdapter = new AdminListAdapter(getActivity(), admins);
@@ -104,7 +106,10 @@ public class ManageAdminFragment extends Fragment {
                     listViewAdmin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                            Intent intent = new Intent(getActivity(), AdminActivity.class);
+                            intent.putExtra("admin", Parcels.wrap(admins.get(position)));
+                            intent.putExtra("tag", "edit");
+                            startActivity(intent);
                         }
                     });
                     registerForContextMenu(listViewAdmin);

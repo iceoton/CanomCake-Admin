@@ -24,4 +24,5 @@
     <string name="add_new_product">เพิ่มสินค้าใหม่</string>
     <string name="edit_product">แก้ไขสินค้า</string>
     <string name="add_admin">เพิ่มผู้ดูแลระบบ</string>
+    <string name="edit_admin">แก้ไขข้อมูลผู้ดูแลระบบ</string>
 </resources>

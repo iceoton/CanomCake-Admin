@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.fragment.AddAdminFragment;
+import com.iceoton.canomcakeadmin.fragment.EditAdminFragment;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -17,10 +18,20 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
         initialActionBar();
 
+        String tag = getIntent().getStringExtra("tag");
+
+        Bundle args = new Bundle();
+        args.putParcelable("admin", getIntent().getParcelableExtra("admin"));
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, AddAdminFragment.newInstance(null))
-                    .commit();
+            if(tag.equals("add")) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.contentContainer, AddAdminFragment.newInstance(null))
+                        .commit();
+            }else if(tag.equals("edit")){
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.contentContainer, EditAdminFragment.newInstance(args))
+                        .commit();
+            }
         }
     }
 
@@ -35,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
         // Initializing Toolbar and setting it as the actionbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(getString(R.string.add_admin));
+        setTitle("ผู้ดูแลระบบ");
         toolbar.setNavigationIcon(R.drawable.arrow_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

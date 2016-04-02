@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.Transaction;
 import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
-import com.iceoton.canomcakeadmin.medel.response.SetPaidOrderResponse;
+import com.iceoton.canomcakeadmin.medel.response.SetOrderStatusResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
 import org.json.JSONException;
@@ -158,12 +158,12 @@ public class TransactionDetailFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
-        Call call = canomCakeService.setPaidOrderByID("setPaidOrderByID", data.toString());
-        call.enqueue(new Callback<SetPaidOrderResponse>() {
+        Call call = canomCakeService.setOrderStatusById("setPaidOrderByID", data.toString());
+        call.enqueue(new Callback<SetOrderStatusResponse>() {
             @Override
-            public void onResponse(Call<SetPaidOrderResponse> call, Response<SetPaidOrderResponse> response) {
-                SetPaidOrderResponse setPaidOrderResponse = response.body();
-                if(setPaidOrderResponse.getSuccessValue() == 1){
+            public void onResponse(Call<SetOrderStatusResponse> call, Response<SetOrderStatusResponse> response) {
+                SetOrderStatusResponse setOrderStatusResponse = response.body();
+                if(setOrderStatusResponse.getSuccessValue() == 1){
                     deleteTransactionById(transaction.getId());
                     Snackbar snackbar = Snackbar
                             .make(containerLayout, "รายการสั่งซื้อ#" + orderId + "\nถูกตั้งค่าว่าชำระเงินแล้ว", Snackbar.LENGTH_LONG);
@@ -177,7 +177,7 @@ public class TransactionDetailFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<SetPaidOrderResponse> call, Throwable t) {
+            public void onFailure(Call<SetOrderStatusResponse> call, Throwable t) {
                 Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });

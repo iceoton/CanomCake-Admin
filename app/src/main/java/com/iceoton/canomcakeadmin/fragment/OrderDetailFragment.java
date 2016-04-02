@@ -3,11 +3,16 @@ package com.iceoton.canomcakeadmin.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +23,7 @@ import com.iceoton.canomcakeadmin.medel.OrderDetail;
 import com.iceoton.canomcakeadmin.medel.User;
 import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrderByIdResponse;
+import com.iceoton.canomcakeadmin.medel.response.SetOrderStatusResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 
 import org.json.JSONException;
@@ -30,6 +36,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OrderDetailFragment extends Fragment {
+    FrameLayout containerLayout;
     ListView listViewDetail;
     TextView txtOrderId, txtOrderTime, txtStatus, txtTotalPrice;
     ImageView imageStatus;
@@ -49,6 +56,7 @@ public class OrderDetailFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             orderId = getArguments().getInt("order_id");
         }
@@ -65,6 +73,7 @@ public class OrderDetailFragment extends Fragment {
 
     private void initialView(View rootView, Bundle savedInstanceState) {
         getActivity().setTitle("คำสั่งซื้อ​ #" + orderId);
+        containerLayout = (FrameLayout) rootView.findViewById(R.id.containerLayout);
         listViewDetail = (ListView) rootView.findViewById(R.id.list_detail);
         View headerView = getLayoutInflater(savedInstanceState).inflate(R.layout.header_order_detail, null, false);
         txtOrderId = (TextView) headerView.findViewById(R.id.text_order_id);
@@ -79,7 +88,35 @@ public class OrderDetailFragment extends Fragment {
 
         txtCustomerInfo = (TextView) rootView.findViewById(R.id.text_customer_info);
 
+
+
         loadOrderByIdFromServer(orderId);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.order_option_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.set_paid:
+                setPaidOrderById(orderId);
+                return true;
+            case R.id.set_derivering:
+                setDeriveringOrderById(orderId);
+                return true;
+            case R.id.set_derivered:
+                setDeriveredOrderById(orderId);
+                return true;
+            case R.id.set_cancel:
+                setCancelOrderById(orderId);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void loadOrderByIdFromServer(int orderId) {
@@ -184,5 +221,152 @@ public class OrderDetailFragment extends Fragment {
         txtTotalPrice.setText(String.valueOf(orderDetail.getTotalPrice()) + " บาท");
     }
 
+    private void setPaidOrderById(final int orderId){
+        JSONObject data = new JSONObject();
+        try {
+            data.put("id", orderId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.setOrderStatusById("setPaidOrderByID", data.toString());
+        call.enqueue(new Callback<SetOrderStatusResponse>() {
+            @Override
+            public void onResponse(Call<SetOrderStatusResponse> call, Response<SetOrderStatusResponse> response) {
+                SetOrderStatusResponse setOrderStatusResponse = response.body();
+                if(setOrderStatusResponse.getSuccessValue() == 1){
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "รายการสั่งซื้อ#" + orderId + "\nถูกตั้งค่าว่าชำระเงินแล้ว", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    getActivity().onBackPressed();
+                } else {
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "โปรดตรวจสอบคำสั่งซื้อ#" + orderId + " แล้วลองใหม่อีกครั้ง", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SetOrderStatusResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
+    }
+
+    private void setDeriveringOrderById(final int orderId){
+        JSONObject data = new JSONObject();
+        try {
+            data.put("id", orderId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.setOrderStatusById("setDeliveringOrderByID", data.toString());
+        call.enqueue(new Callback<SetOrderStatusResponse>() {
+            @Override
+            public void onResponse(Call<SetOrderStatusResponse> call, Response<SetOrderStatusResponse> response) {
+                SetOrderStatusResponse setOrderStatusResponse = response.body();
+                if(setOrderStatusResponse.getSuccessValue() == 1){
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "รายการสั่งซื้อ#" + orderId + "\nถูกตั้งค่าว่ากำลังจัดส่ง", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    getActivity().onBackPressed();
+                } else {
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "โปรดตรวจสอบคำสั่งซื้อ#" + orderId + " ลองใหม่อีกครั้ง", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SetOrderStatusResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
+    }
+
+    private void setDeriveredOrderById(final int orderId){
+        JSONObject data = new JSONObject();
+        try {
+            data.put("id", orderId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.setOrderStatusById("setDeliveredOrderByID", data.toString());
+        call.enqueue(new Callback<SetOrderStatusResponse>() {
+            @Override
+            public void onResponse(Call<SetOrderStatusResponse> call, Response<SetOrderStatusResponse> response) {
+                SetOrderStatusResponse setOrderStatusResponse = response.body();
+                if(setOrderStatusResponse.getSuccessValue() == 1){
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "รายการสั่งซื้อ#" + orderId + "\nถูกตั้งค่าว่าจัดส่งแล้ว", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    getActivity().onBackPressed();
+                } else {
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "โปรดตรวจสอบคำสั่งซื้อ#" + orderId + " ลองใหม่อีกครั้ง", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SetOrderStatusResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
+    }
+
+    private void setCancelOrderById(final int orderId){
+        JSONObject data = new JSONObject();
+        try {
+            data.put("id", orderId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(getResources().getString(R.string.api_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        Call call = canomCakeService.setOrderStatusById("cancelOrderByID", data.toString());
+        call.enqueue(new Callback<SetOrderStatusResponse>() {
+            @Override
+            public void onResponse(Call<SetOrderStatusResponse> call, Response<SetOrderStatusResponse> response) {
+                SetOrderStatusResponse setOrderStatusResponse = response.body();
+                if(setOrderStatusResponse.getSuccessValue() == 1){
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "รายการสั่งซื้อ#" + orderId + "\nถูกตั้งค่าว่ายกเลิก", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    getActivity().onBackPressed();
+                } else {
+                    Snackbar snackbar = Snackbar
+                            .make(containerLayout, "โปรดตรวจสอบคำสั่งซื้อ#" + orderId + " ลองใหม่อีกครั้ง", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SetOrderStatusResponse> call, Throwable t) {
+                Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
+            }
+        });
+    }
 
 }

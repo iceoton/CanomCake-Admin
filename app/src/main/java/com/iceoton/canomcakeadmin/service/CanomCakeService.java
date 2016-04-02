@@ -18,7 +18,7 @@ import com.iceoton.canomcakeadmin.medel.response.GetProductByCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
 import com.iceoton.canomcakeadmin.medel.response.LoginAdminResponse;
 import com.iceoton.canomcakeadmin.medel.response.RegisterAdminResponse;
-import com.iceoton.canomcakeadmin.medel.response.SetPaidOrderResponse;
+import com.iceoton.canomcakeadmin.medel.response.SetOrderStatusResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -104,7 +104,7 @@ public interface CanomCakeService {
 
     @FormUrlEncoded
     @POST("adminApi.php")
-    Call<SetPaidOrderResponse> setPaidOrderByID(@Field("tag") String tag, @Field("data") String data);
+    Call<SetOrderStatusResponse> setOrderStatusById(@Field("tag") String tag, @Field("data") String data);
 
     @FormUrlEncoded
     @POST("adminApi.php")

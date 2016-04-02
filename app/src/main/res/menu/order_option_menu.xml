@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/set_paid"
+        android:checked="false"
+        android:icon="@drawable/icon_packaging"
+        android:title="@string/order_status_paid" />
+
+    <item
+        android:id="@+id/set_derivering"
+        android:checked="false"
+        android:icon="@drawable/icon_delivering"
+        android:title="@string/order_status_delivering" />
+
+    <item
+        android:id="@+id/set_derivered"
+        android:checked="false"
+        android:icon="@drawable/icon_delivered"
+        android:title="@string/order_status_delivered" />
+
+    <item
+        android:id="@+id/set_cancel"
+        android:checked="false"
+        android:icon="@drawable/icon_cancel"
+        android:title="@string/order_status_canceled" />
+
+</menu>

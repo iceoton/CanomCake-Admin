@@ -2,7 +2,7 @@ package com.iceoton.canomcakeadmin.medel.response;
 
 import com.google.gson.annotations.Expose;
 
-public class SetPaidOrderResponse {
+public class SetOrderStatusResponse {
     @Expose
     int success;
     @Expose

@@ -6,6 +6,7 @@ import com.iceoton.canomcakeadmin.medel.response.DeleteResponse;
 import com.iceoton.canomcakeadmin.medel.response.DeleteTransactionResponse;
 import com.iceoton.canomcakeadmin.medel.response.EditAdminResponse;
 import com.iceoton.canomcakeadmin.medel.response.EditProductResponse;
+import com.iceoton.canomcakeadmin.medel.response.ForgetPasswordResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllAdminResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCustomerResponse;
@@ -73,6 +74,10 @@ public interface CanomCakeService {
 
     @FormUrlEncoded
     @POST("adminApi.php")
+    Call<ForgetPasswordResponse> sendForgetPassword(@Field("tag") String tag, @Field("data") String data);
+
+    @FormUrlEncoded
+    @POST("adminApi.php")
     Call<RegisterAdminResponse> registerAdmin(@Field("tag") String tag, @Field("data") String data);
 
     @FormUrlEncoded
@@ -114,4 +119,6 @@ public interface CanomCakeService {
     @FormUrlEncoded
     @POST("adminApi.php")
     Call<DeleteProductResponse> deleteProductByCode(@Field("tag") String tag, @Field("data") String data);
+
+
 }

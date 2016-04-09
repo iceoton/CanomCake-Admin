@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
     EditText etUsername, etPassword;
-    Button btnLogin, btnRegister;
+    Button btnLogin, btnForgetPassword;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -58,11 +58,14 @@ public class LoginFragment extends Fragment {
                         , etPassword.getText().toString());
             }
         });
-        btnRegister = (Button) rootView.findViewById(R.id.button_register);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnForgetPassword = (Button) rootView.findViewById(R.id.button_forget_password);
+        btnForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "ยังใช้งานไม่ได้",Toast.LENGTH_SHORT).show();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, ForgetPasswordFragment.newInstance(null))
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

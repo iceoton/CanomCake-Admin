@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProductDetailFragment extends Fragment {
     String productCode;
     ImageView ivPhoto;
-    TextView txtName, txtDetail, txtPrice, txtUnit;
+    TextView txtName, txtDetail, txtPrice, txtUnit, txtSoldOut, txtProductInStock;
     Button btnEdit, btnDelete;
 
     public static ProductDetailFragment newInstance(Bundle args) {
@@ -73,10 +73,12 @@ public class ProductDetailFragment extends Fragment {
 
     private void initialView(View rootView, Bundle savedInstanceState) {
         ivPhoto = (ImageView) rootView.findViewById(R.id.image_photo);
+        txtSoldOut = (TextView) rootView.findViewById(R.id.text_sold_out);
         txtName = (TextView) rootView.findViewById(R.id.text_name);
         txtDetail = (TextView) rootView.findViewById(R.id.text_detail);
         txtPrice = (TextView) rootView.findViewById(R.id.text_price);
         txtUnit = (TextView) rootView.findViewById(R.id.text_unit);
+        txtProductInStock = (TextView) rootView.findViewById(R.id.text_available);
         btnEdit = (Button) rootView.findViewById(R.id.button_edit);
 
         btnDelete = (Button) rootView.findViewById(R.id.button_delete);
@@ -132,7 +134,12 @@ public class ProductDetailFragment extends Fragment {
                     txtDetail.setText(product.getDetail());
                     txtPrice.setText(Double.toString(product.getPrice()));
                     txtUnit.setText("บาท/" + product.getUnit());
-
+                    txtProductInStock.setText(String.valueOf(product.getAvailable()) + " " + product.getUnit());
+                    if (product.getAvailable() < 1) {
+                        txtSoldOut.setVisibility(View.VISIBLE);
+                    } else{
+                        txtSoldOut.setVisibility(View.INVISIBLE);
+                    }
 
                     String imageUrl = getActivity().getResources().getString(R.string.api_url)
                             + product.getImageUrl();

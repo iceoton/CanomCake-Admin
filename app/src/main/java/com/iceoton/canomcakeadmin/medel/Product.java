@@ -1,6 +1,7 @@
 package com.iceoton.canomcakeadmin.medel;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 
@@ -22,6 +23,8 @@ public class Product {
     String unit;
     @Expose
     String image;
+    @SerializedName("available")
+    int available;
 
     public Product() {
         /*Required empty bean constructor*/
@@ -85,5 +88,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.image = imageUrl;
+    }
+
+    public int getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(int available) {
+        this.available = available;
     }
 }

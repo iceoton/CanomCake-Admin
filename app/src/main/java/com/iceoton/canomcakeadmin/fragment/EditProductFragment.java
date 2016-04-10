@@ -4,6 +4,7 @@ package com.iceoton.canomcakeadmin.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -57,11 +58,12 @@ public class EditProductFragment extends Fragment {
     private static final int PICTURE_REQUEST_CODE = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ImageView ivPhoto;
-    EditText etName, etPrice, etUnit, etDetail;
+    EditText etName, etPrice, etUnit, etDetail, etProductInStock;
     Button btnSave;
     Spinner spinnerCategory;
     Uri imageUri;
     Product defaultProduct;
+    ProgressDialog progressBar;
 
     public EditProductFragment() {
         // Required empty public constructor
@@ -111,6 +113,7 @@ public class EditProductFragment extends Fragment {
         etName = (EditText) rootView.findViewById(R.id.edit_name);
         etPrice = (EditText) rootView.findViewById(R.id.edit_price);
         etUnit = (EditText) rootView.findViewById(R.id.edit_unit);
+        etProductInStock = (EditText) rootView.findViewById(R.id.edit_in_stock);
         etDetail = (EditText) rootView.findViewById(R.id.edit_detail);
         spinnerCategory = (Spinner) rootView.findViewById(R.id.spinner_category);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -124,20 +127,28 @@ public class EditProductFragment extends Fragment {
             public void onClick(View v) {
                 Product product = checkInputData();
                 if (product != null) {
+                    progressBar.show();
                     editProduct(product);
                 }
             }
         });
+        etProductInStock = (EditText) rootView.findViewById(R.id.edit_in_stock);
+
+        progressBar = new ProgressDialog(getActivity());
+        progressBar.setCancelable(false);
+        progressBar.setMessage("กำลังทำงาน...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
-    private void setupProduct(){
+    private void setupProduct() {
         etName.setText(defaultProduct.getNameThai());
         etPrice.setText(String.valueOf(defaultProduct.getPrice()));
         etUnit.setText(defaultProduct.getUnit());
         etDetail.setText(defaultProduct.getDetail());
-        if(defaultProduct.getCategoryId() == 3) {
+        etProductInStock.setText(String.valueOf(defaultProduct.getAvailable()));
+        if (defaultProduct.getCategoryId() == 3) {
             spinnerCategory.setSelection(0);
-        } else{
+        } else {
             spinnerCategory.setSelection(1);
         }
         String imageUrl = getActivity().getResources().getString(R.string.api_url)
@@ -198,6 +209,19 @@ public class EditProductFragment extends Fragment {
         } else {
             defaultProduct.setUnit(unit);
         }
+
+        String productInStock = etProductInStock.getText().toString();
+        if (unit.trim().equals("")) {
+            Toast.makeText(getActivity(), "กรุณาใส่จำนวนสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            try {
+                defaultProduct.setAvailable(Integer.parseInt(productInStock));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
         defaultProduct.setDetail(etDetail.getText().toString());
 
         return defaultProduct;
@@ -223,6 +247,7 @@ public class EditProductFragment extends Fragment {
             data.put("detail", product.getDetail());
             data.put("price", product.getPrice());
             data.put("unit", product.getUnit());
+            data.put("available", product.getAvailable());
             data.put("image", product.getImageUrl());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -238,6 +263,7 @@ public class EditProductFragment extends Fragment {
         call.enqueue(new Callback<EditProductResponse>() {
             @Override
             public void onResponse(Call<EditProductResponse> call, Response<EditProductResponse> response) {
+                progressBar.dismiss();
                 EditProductResponse editProductResponse = response.body();
                 if (editProductResponse.getSuccessValue() == 1) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

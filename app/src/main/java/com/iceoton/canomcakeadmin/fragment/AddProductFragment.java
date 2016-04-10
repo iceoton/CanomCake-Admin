@@ -55,7 +55,7 @@ public class AddProductFragment extends Fragment {
     private static final int PICTURE_REQUEST_CODE = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     ImageView ivPhoto;
-    EditText etName, etPrice, etUnit, etDetail;
+    EditText etName, etPrice, etUnit, etDetail, etProductInStock;
     Button btnSave;
     Spinner spinnerCategory;
     Uri imageUri;
@@ -107,6 +107,7 @@ public class AddProductFragment extends Fragment {
         etName = (EditText) rootView.findViewById(R.id.edit_name);
         etPrice = (EditText) rootView.findViewById(R.id.edit_price);
         etUnit = (EditText) rootView.findViewById(R.id.edit_unit);
+        etProductInStock = (EditText) rootView.findViewById(R.id.edit_in_stock);
         etDetail = (EditText) rootView.findViewById(R.id.edit_detail);
         spinnerCategory = (Spinner) rootView.findViewById(R.id.spinner_category);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -180,6 +181,19 @@ public class AddProductFragment extends Fragment {
         } else {
             product.setUnit(unit);
         }
+
+        String productInStock = etProductInStock.getText().toString();
+        if (unit.trim().equals("")) {
+            Toast.makeText(getActivity(), "กรุณาใส่จำนวนสินค้า", Toast.LENGTH_SHORT).show();
+            return null;
+        } else {
+            try {
+                product.setAvailable(Integer.parseInt(productInStock));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+
         product.setDetail(etDetail.getText().toString());
 
         if (imageUri == null) {
@@ -205,6 +219,7 @@ public class AddProductFragment extends Fragment {
             data.put("detail", product.getDetail());
             data.put("price", product.getPrice());
             data.put("unit", product.getUnit());
+            data.put("available", product.getAvailable());
             data.put("image", product.getImageUrl());
         } catch (JSONException e) {
             e.printStackTrace();

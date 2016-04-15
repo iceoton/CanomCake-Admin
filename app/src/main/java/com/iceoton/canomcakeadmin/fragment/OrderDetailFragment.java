@@ -29,6 +29,8 @@ import com.iceoton.canomcakeadmin.service.CanomCakeService;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -340,10 +342,23 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.v("DEBUG", message);
+            }
+        });
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(getResources().getString(R.string.api_url))
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
                 .build();
+
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
         Call call = canomCakeService.setOrderStatusById("cancelOrderByID", data.toString());
         call.enqueue(new Callback<SetOrderStatusResponse>() {
@@ -359,6 +374,7 @@ public class OrderDetailFragment extends Fragment {
                     Snackbar snackbar = Snackbar
                             .make(containerLayout, "โปรดตรวจสอบคำสั่งซื้อ#" + orderId + " ลองใหม่อีกครั้ง", Snackbar.LENGTH_LONG);
                     snackbar.show();
+                    Log.d("DEBUG","Cancel order error:" + setOrderStatusResponse.getErrorMessage());
                 }
             }
 

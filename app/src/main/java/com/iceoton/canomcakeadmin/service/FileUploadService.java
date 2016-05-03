@@ -13,6 +13,6 @@ public interface FileUploadService {
 
     //reference: https://github.com/square/retrofit/issues/1063
     @Multipart
-    @POST("/uploadImageApi.php")
+    @POST("uploadImageApi.php")
     Call<UploadFileResponse> upload(@Part("image_file\"; filename=\"image.jpg\" ") RequestBody file);
 }

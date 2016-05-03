@@ -57,6 +57,12 @@ public class ProductListFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProductInCategory(categoryId);
+    }
+
     private void initialView(View rootView) {
         String categoryName = bundle.getString("category_name");
         getActivity().setTitle(categoryName);
@@ -71,12 +77,6 @@ public class ProductListFragment extends Fragment {
         });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        loadProductInCategory(categoryId);
     }
 
     private void loadProductInCategory(int categoryId) {
@@ -106,10 +106,12 @@ public class ProductListFragment extends Fragment {
                 ArrayList<Product> products = response.body().getResult();
                 if (products != null) {
                     Log.d("DEBUG", "The number of products is " + products.size());
+
                     GridLayoutManager lLayout = new GridLayoutManager(getContext(), 2);
                     recyclerView.setLayoutManager(lLayout);
                     RecyclerViewAdapter rcAdapter = new RecyclerViewAdapter(getContext(), products);
                     recyclerView.setAdapter(rcAdapter);
+
                 }
             }
 

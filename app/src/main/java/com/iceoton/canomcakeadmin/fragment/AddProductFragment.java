@@ -4,6 +4,7 @@ package com.iceoton.canomcakeadmin.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -60,6 +61,7 @@ public class AddProductFragment extends Fragment {
     Button btnSave;
     Spinner spinnerCategory;
     Uri imageUri;
+    ProgressDialog progressBar;
 
     public AddProductFragment() {
         // Required empty public constructor
@@ -122,10 +124,16 @@ public class AddProductFragment extends Fragment {
             public void onClick(View v) {
                 Product product = checkInputData();
                 if (product != null) {
+                    progressBar.show();
                     addNewProduct(product);
                 }
             }
         });
+
+        progressBar = new ProgressDialog(getActivity());
+        progressBar.setCancelable(false);
+        progressBar.setMessage("กำลังทำงาน...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     @Override
@@ -237,6 +245,7 @@ public class AddProductFragment extends Fragment {
         call.enqueue(new Callback<AddProductResponse>() {
             @Override
             public void onResponse(Call<AddProductResponse> call, Response<AddProductResponse> response) {
+                progressBar.dismiss();
                 AddProductResponse addProductResponse = response.body();
                 if (addProductResponse.getSuccessValue() == 1) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -258,6 +267,7 @@ public class AddProductFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AddProductResponse> call, Throwable t) {
+                progressBar.dismiss();
                 Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });

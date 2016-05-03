@@ -23,6 +23,7 @@ import com.iceoton.canomcakeadmin.fragment.ManageAdminFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageOrdersFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageProductFragment;
 import com.iceoton.canomcakeadmin.fragment.ManageUserFragment;
+import com.iceoton.canomcakeadmin.fragment.SetIpFragment;
 import com.iceoton.canomcakeadmin.util.AppPreference;
 
 public class MainActivity extends AppCompatActivity {
@@ -127,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.admin:
                         fragment = new ManageAdminFragment();
                         toolbar.setTitle(R.string.menu_admin);
+                        break;
+                    case R.id.url:
+                        fragment = new SetIpFragment();
+                        toolbar.setTitle("ตั้งค่า URL ของ API");
                         break;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();

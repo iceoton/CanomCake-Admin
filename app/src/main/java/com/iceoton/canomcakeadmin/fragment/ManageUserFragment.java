@@ -17,6 +17,7 @@ import com.iceoton.canomcakeadmin.adapter.UserListAdapter;
 import com.iceoton.canomcakeadmin.medel.User;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCustomerResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import org.parceler.Parcels;
 
@@ -70,8 +71,9 @@ public class ManageUserFragment extends Fragment {
     }
 
     private void loadAllUserFromServer() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.OrderDetailItem;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import java.util.ArrayList;
 
@@ -65,7 +66,8 @@ public class OrderDetailListAdapter extends BaseAdapter{
         viewHolder.textProductName.setText(orderDetailItem.getNameThai());
         viewHolder.textAmount.setText(String.valueOf(orderDetailItem.getAmount()));
 
-        String imageUrl = mContext.getResources().getString(R.string.api_url)
+        AppPreference preference = new AppPreference(mContext);
+        String imageUrl = preference.getApiUrl()
                 + orderDetailItem.getImageUrl();
         Glide.with(mContext).load(imageUrl)
                 .placeholder(R.drawable.product_photo)

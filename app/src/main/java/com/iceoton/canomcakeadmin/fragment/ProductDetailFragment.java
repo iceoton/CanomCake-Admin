@@ -22,6 +22,7 @@ import com.iceoton.canomcakeadmin.medel.Product;
 import com.iceoton.canomcakeadmin.medel.response.DeleteProductResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetProductByCodeResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,8 +119,9 @@ public class ProductDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        final AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
@@ -141,7 +143,7 @@ public class ProductDetailFragment extends Fragment {
                         txtSoldOut.setVisibility(View.INVISIBLE);
                     }
 
-                    String imageUrl = getActivity().getResources().getString(R.string.api_url)
+                    String imageUrl = preference.getApiUrl()
                             + product.getImageUrl();
                     Glide.with(getActivity()).load(imageUrl).into(ivPhoto);
                     btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -168,8 +170,9 @@ public class ProductDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

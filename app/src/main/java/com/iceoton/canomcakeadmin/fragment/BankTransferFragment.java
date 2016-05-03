@@ -16,6 +16,7 @@ import com.iceoton.canomcakeadmin.adapter.TransactionListAdapter;
 import com.iceoton.canomcakeadmin.medel.Transaction;
 import com.iceoton.canomcakeadmin.medel.response.GetAllTransactionsResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import java.util.ArrayList;
 
@@ -61,8 +62,9 @@ public class BankTransferFragment extends Fragment {
     }
 
     private void loadBankTransferFromServer() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

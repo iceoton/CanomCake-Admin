@@ -25,6 +25,7 @@ import com.iceoton.canomcakeadmin.medel.response.GetCustomerResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetOrderByIdResponse;
 import com.iceoton.canomcakeadmin.medel.response.SetOrderStatusResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,8 +130,9 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getContext().getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -165,8 +167,9 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -231,8 +234,9 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
@@ -268,8 +272,9 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
@@ -305,8 +310,9 @@ public class OrderDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
@@ -353,8 +359,9 @@ public class OrderDetailFragment extends Fragment {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();

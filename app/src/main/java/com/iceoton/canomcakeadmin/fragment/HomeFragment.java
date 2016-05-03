@@ -14,6 +14,7 @@ import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.medel.Dashboard;
 import com.iceoton.canomcakeadmin.medel.response.GetDashboardResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,8 +84,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDashboardFromServer() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

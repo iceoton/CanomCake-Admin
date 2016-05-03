@@ -16,6 +16,7 @@ import com.iceoton.canomcakeadmin.adapter.OrdersListAdapter;
 import com.iceoton.canomcakeadmin.medel.Order;
 import com.iceoton.canomcakeadmin.medel.response.GetOrdersResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import java.util.ArrayList;
 
@@ -74,8 +75,9 @@ public class OrdersFragment extends Fragment {
     }
 
     private void loadOrdersFromServer() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

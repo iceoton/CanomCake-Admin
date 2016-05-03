@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.iceoton.canomcakeadmin.R;
 import com.iceoton.canomcakeadmin.activity.MainActivity;
+import com.iceoton.canomcakeadmin.activity.SetIpActivity;
 import com.iceoton.canomcakeadmin.medel.Admin;
 import com.iceoton.canomcakeadmin.medel.response.LoginAdminResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
@@ -31,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginFragment extends Fragment {
     EditText etUsername, etPassword;
     Button btnLogin, btnForgetPassword;
+    ImageView imgLogo;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -69,6 +72,14 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        imgLogo = (ImageView) rootView.findViewById(R.id.image_logo);
+        imgLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SetIpActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -81,8 +92,9 @@ public class LoginFragment extends Fragment {
             e.printStackTrace();
         }
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

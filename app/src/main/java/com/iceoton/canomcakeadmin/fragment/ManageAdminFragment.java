@@ -25,6 +25,7 @@ import com.iceoton.canomcakeadmin.medel.Admin;
 import com.iceoton.canomcakeadmin.medel.response.DeleteResponse;
 import com.iceoton.canomcakeadmin.medel.response.GetAllAdminResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,8 +90,9 @@ public class ManageAdminFragment extends Fragment {
     }
 
     private void loadAllAdminFromServer() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
@@ -172,8 +174,9 @@ public class ManageAdminFragment extends Fragment {
         }
         Log.d("DEBUG", "json = " + data.toString());
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

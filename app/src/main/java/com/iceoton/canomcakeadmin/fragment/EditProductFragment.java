@@ -35,6 +35,7 @@ import com.iceoton.canomcakeadmin.medel.response.UploadFileResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 import com.iceoton.canomcakeadmin.service.FileUploadService;
 import com.iceoton.canomcakeadmin.service.ServiceGenerator;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 import com.iceoton.canomcakeadmin.util.FileUtils;
 
 import org.json.JSONException;
@@ -151,7 +152,8 @@ public class EditProductFragment extends Fragment {
         } else {
             spinnerCategory.setSelection(1);
         }
-        String imageUrl = getActivity().getResources().getString(R.string.api_url)
+        AppPreference preference = new AppPreference(getActivity());
+        String imageUrl = preference.getApiUrl()
                 + defaultProduct.getImageUrl();
         Glide.with(getActivity()).load(imageUrl).into(ivPhoto);
     }
@@ -254,8 +256,9 @@ public class EditProductFragment extends Fragment {
         }
         Log.d("DEBUG", "json = " + data.toString());
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

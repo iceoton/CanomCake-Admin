@@ -72,6 +72,11 @@
             android:name=".activity.AdminActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme" />
+
+        <activity
+            android:name=".activity.SetIpActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme" />
     </application>
 
 </manifest>

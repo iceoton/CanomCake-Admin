@@ -17,6 +17,7 @@ import com.iceoton.canomcakeadmin.adapter.CategoryListAdapter;
 import com.iceoton.canomcakeadmin.medel.Category;
 import com.iceoton.canomcakeadmin.medel.response.GetAllCategoryResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import java.util.ArrayList;
 
@@ -63,8 +64,9 @@ public class ManageProductFragment extends Fragment {
     }
 
     private void loadCategories() {
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

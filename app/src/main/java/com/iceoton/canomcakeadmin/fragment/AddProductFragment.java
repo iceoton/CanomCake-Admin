@@ -33,6 +33,7 @@ import com.iceoton.canomcakeadmin.medel.response.UploadFileResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
 import com.iceoton.canomcakeadmin.service.FileUploadService;
 import com.iceoton.canomcakeadmin.service.ServiceGenerator;
+import com.iceoton.canomcakeadmin.util.AppPreference;
 import com.iceoton.canomcakeadmin.util.FileUtils;
 
 import org.json.JSONException;
@@ -226,8 +227,9 @@ public class AddProductFragment extends Fragment {
         }
         Log.d("DEBUG", "json = " + data.toString());
 
+        AppPreference preference = new AppPreference(getActivity());
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(getResources().getString(R.string.api_url))
+                .baseUrl(preference.getApiUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);

@@ -27,5 +27,11 @@
             android:checked="false"
             android:icon="@drawable/ic_admin"
             android:title="@string/menu_admin" />
+
+        <item
+            android:id="@+id/url"
+            android:checked="false"
+            android:icon="@drawable/ic_set_ip"
+            android:title="ตั้งค่า URL ของ API" />
     </group>
 </menu>

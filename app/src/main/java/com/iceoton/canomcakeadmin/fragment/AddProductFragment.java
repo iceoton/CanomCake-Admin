@@ -293,8 +293,9 @@ public class AddProductFragment extends Fragment {
         }
 
         // create upload service client
+        AppPreference preference = new AppPreference(getActivity());
         FileUploadService service =
-                ServiceGenerator.createService(FileUploadService.class);
+                ServiceGenerator.createService(preference.getApiUrl(), FileUploadService.class);
 
         // use the FileUtils to get the actual file by uri
         //File file = FileUtils.getFile(this, fileUri);
@@ -315,12 +316,14 @@ public class AddProductFragment extends Fragment {
                     product.setImageUrl(response.body().getImageUrl());
                     addProductToServer(product);
                 } else {
+                    progressBar.dismiss();
                     Log.d("DEBUG", "upload error:" + response.body().getErrorMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<UploadFileResponse> call, Throwable t) {
+                progressBar.dismiss();
                 Log.d("DEBUG", "Call CanomCake-API failure." + "\n" + t.getMessage());
             }
         });

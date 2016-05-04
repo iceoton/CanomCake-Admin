@@ -313,8 +313,9 @@ public class EditProductFragment extends Fragment {
         }
 
         // create upload service client
+        AppPreference preference = new AppPreference(getActivity());
         FileUploadService service =
-                ServiceGenerator.createService(FileUploadService.class);
+                ServiceGenerator.createService(preference.getApiUrl(), FileUploadService.class);
 
         // use the FileUtils to get the actual file by uri
         //File file = FileUtils.getFile(this, fileUri);

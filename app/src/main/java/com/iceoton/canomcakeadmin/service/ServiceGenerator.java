@@ -20,4 +20,12 @@ public class ServiceGenerator {
         Retrofit retrofit = builder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }
+
+    public static <S> S createService(String apiBaseUrl,Class<S> serviceClass) {
+        Retrofit.Builder builder = new Retrofit.Builder()
+                        .baseUrl(apiBaseUrl)
+                        .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.client(httpClient.build()).build();
+        return retrofit.create(serviceClass);
+    }
 }

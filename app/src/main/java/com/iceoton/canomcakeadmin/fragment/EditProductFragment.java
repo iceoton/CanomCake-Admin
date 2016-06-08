@@ -149,8 +149,10 @@ public class EditProductFragment extends Fragment {
         etProductInStock.setText(String.valueOf(defaultProduct.getAvailable()));
         if (defaultProduct.getCategoryId() == 3) {
             spinnerCategory.setSelection(0);
-        } else {
+        } else if(defaultProduct.getCategoryId() == 4) {
             spinnerCategory.setSelection(1);
+        } else if(defaultProduct.getCategoryId() == 5) {
+            spinnerCategory.setSelection(2);
         }
         AppPreference preference = new AppPreference(getActivity());
         String imageUrl = preference.getApiUrl()
@@ -184,8 +186,10 @@ public class EditProductFragment extends Fragment {
         int selectedCategory = spinnerCategory.getSelectedItemPosition();
         if (selectedCategory == 0) {
             defaultProduct.setCategoryId("3");
-        } else {
+        } else if(selectedCategory == 1) {
             defaultProduct.setCategoryId("4");
+        } else if(selectedCategory == 2) {
+            defaultProduct.setCategoryId("5");
         }
         String productName = etName.getText().toString();
         if (productName.trim().equals("")) {

@@ -163,8 +163,10 @@ public class AddProductFragment extends Fragment {
         int selectedCategory = spinnerCategory.getSelectedItemPosition();
         if (selectedCategory == 0) {
             product.setCategoryId("3");
-        } else {
+        } else if(selectedCategory == 1) {
             product.setCategoryId("4");
+        } else if(selectedCategory == 2) {
+            product.setCategoryId("5");
         }
         String productName = etName.getText().toString();
         if (productName.trim().equals("")) {

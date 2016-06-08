@@ -3,6 +3,7 @@
     <string-array name="category_array">
         <item>วัตถุดิบ</item>
         <item>อุปกรณ์เครื่องมือ</item>
+        <item>ขนมอบ</item>
     </string-array>
 
 </resources>

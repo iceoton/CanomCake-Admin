@@ -19,6 +19,7 @@ import com.iceoton.canomcakeadmin.activity.SetIpActivity;
 import com.iceoton.canomcakeadmin.medel.Admin;
 import com.iceoton.canomcakeadmin.medel.response.LoginAdminResponse;
 import com.iceoton.canomcakeadmin.service.CanomCakeService;
+import com.iceoton.canomcakeadmin.service.ServiceGenerator;
 import com.iceoton.canomcakeadmin.util.AppPreference;
 
 import org.json.JSONException;
@@ -27,8 +28,6 @@ import org.json.JSONObject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginFragment extends Fragment {
     EditText etUsername, etPassword;
@@ -92,13 +91,7 @@ public class LoginFragment extends Fragment {
             e.printStackTrace();
         }
 
-        AppPreference preference = new AppPreference(getActivity());
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(preference.getApiUrl())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        CanomCakeService canomCakeService = retrofit.create(CanomCakeService.class);
+        CanomCakeService canomCakeService = ServiceGenerator.createService(CanomCakeService.class);
         Call call = canomCakeService.loginAdminToserver("adminLogin", data.toString());
         call.enqueue(new Callback<LoginAdminResponse>() {
             @Override

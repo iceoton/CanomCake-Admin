@@ -67,7 +67,7 @@ public class AppPreference {
     }
 
     public String getApiUrl() {
-        return sharedPref.getString("api_url", "http://192.168.1.1:8888/");
+        return sharedPref.getString("api_url", "http://canomcake-iton.rhcloud.com/api/");
     }
 
 }

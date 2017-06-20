@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://188.166.218.45";
+    public static final String API_BASE_URL = "http://canomcake-iton.rhcloud.com/api/";
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
